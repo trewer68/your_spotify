@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { startOfDay, startOfMonth, startOfWeek, startOfYear } from "date-fns";
+import { subDays, getDaysInMonth, getDaysInYear } from "date-fns"; // startOfDay, startOfMonth, startOfWeek, startOfYear
 import { getAppropriateTimesplitFromRange } from "./date";
 import { selectAccounts } from "./redux/modules/admin/selector";
 import { selectUser } from "./redux/modules/user/selector";
@@ -9,10 +9,10 @@ import { Timesplit } from "./types";
 import { getFirstListenedAt } from "./user";
 
 const now = new Date();
-const startOfToday = startOfDay(now);
-const startOfThisWeek = startOfWeek(now);
-const startOfThisMonth = startOfMonth(now);
-const startOfThisYear = startOfYear(now);
+const startOfToday = subDays(now, 1) // startOfDay(now);
+const startOfThisWeek = subDays(now, 7) // startOfWeek(now);
+const startOfThisMonth = subDays(now, getDaysInMonth(now)) // startOfMonth(now);
+const startOfThisYear = subDays(now, getDaysInYear(now)) // startOfYear(now);
 
 export interface Interval {
   timesplit: Timesplit;
